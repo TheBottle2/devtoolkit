@@ -75,7 +75,8 @@ export default function AccessibilityToolbar() {
       role="toolbar"
       aria-label="Accessibility options"
       aria-orientation="horizontal"
-      className="fixed bottom-4 right-4 z-[9998] flex items-center gap-1 p-1.5 rounded-lg border border-border bg-background/95 backdrop-blur-sm shadow-lg"
+      className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-[9998] flex items-center gap-2 p-1.5 rounded-lg border border-border bg-background/95 backdrop-blur-sm shadow-lg"
+      style={{ paddingBottom: 'max(0.375rem, env(safe-area-inset-bottom))' }}
     >
       {/* FONT BOYUTU BUTONU */}
       <button
@@ -84,7 +85,7 @@ export default function AccessibilityToolbar() {
         aria-label={`Change font size. Current: ${FONT_SIZE_LABELS[fontSizeIndex]}`}
         aria-pressed={fontSizeIndex > 0}
         title="Change font size"
-        className="w-10 h-10 flex items-center justify-center rounded text-sm font-bold text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 focus:ring-offset-background"
+        className="w-11 h-11 flex items-center justify-center rounded text-sm font-bold text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 focus:ring-offset-background"
       >
         <span aria-hidden="true" className="leading-none select-none">
           A+
@@ -100,7 +101,7 @@ export default function AccessibilityToolbar() {
         onClick={toggleTheme}
         aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
         title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
-        className="w-10 h-10 flex items-center justify-center rounded text-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 focus:ring-offset-background text-muted-foreground hover:text-foreground hover:bg-secondary"
+        className="w-11 h-11 flex items-center justify-center rounded text-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 focus:ring-offset-background text-muted-foreground hover:text-foreground hover:bg-secondary"
       >
         {theme === 'dark' ? (
           // SUN ICON (Güneş)

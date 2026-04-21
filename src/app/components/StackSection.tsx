@@ -105,7 +105,7 @@ export default function StackSection() {
   return (
     <section
       id="stack"
-      className="py-24 border-b border-border"
+      className="py-16 sm:py-24 border-b border-border"
       aria-labelledby="stack-heading"
     >
       {/*
@@ -120,7 +120,7 @@ export default function StackSection() {
           Animasyon: section-reveal stagger-1
           Layout: Mobil'de dikey, desktop'ta yatay (sm:flex-row)
         */}
-        <div className="section-reveal stagger-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
+        <div className="section-reveal stagger-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-16">
           <div>
             {/* EYEBROW: Üst küçük başlık */}
             <p
@@ -150,7 +150,7 @@ export default function StackSection() {
           lg:grid-cols-3: 3 kolon (1024px+)
           gap-4: Kartlar arası boşluk (16px)
         */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {/*
             Her bir kart için map ile döngü
             
@@ -159,7 +159,7 @@ export default function StackSection() {
 {stackItems.map((item, index) => (
           <article
               key={item.name}
-              className={`section-reveal stagger-${index + 1} group relative bg-card border border-border rounded-lg p-6 flex flex-col gap-4 hover:border-primary/30 transition-colors duration-200`}
+              className={`section-reveal stagger-${index + 1} group relative bg-card border border-border rounded-lg p-6 flex flex-col gap-4 hover:border-primary/30 active:border-primary/30 transition-colors duration-200`}
               aria-label={`${item.name} — ${item.tag}: ${item.description}`}
             >
               {/*
@@ -175,7 +175,7 @@ export default function StackSection() {
                 aria-hidden="true": Dekoratif, ekran okuyucular için gizli
               */}
               <span
-                className="absolute top-5 right-5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                className="absolute top-5 right-5 text-[11px] sm:text-[10px] font-semibold uppercase tracking-widest text-muted-foreground opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200"
                 aria-hidden="true"
               >
                 {item.tag}

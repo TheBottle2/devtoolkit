@@ -184,7 +184,7 @@ export default function HeroSection() {
           Animasyon: section-reveal stagger-5 (320ms gecikme)
         */}
         <div
-          className="section-reveal stagger-5 mt-16 pt-8 border-t border-border grid grid-cols-3 gap-8 max-w-lg"
+          className="section-reveal stagger-5 mt-10 sm:mt-16 pt-8 border-t border-border grid grid-cols-3 gap-4 sm:gap-8 max-w-lg"
           aria-label="Quick stats"
         >
           {/*
@@ -204,7 +204,7 @@ export default function HeroSection() {
                 {stat.value}
               </div>
               {/* Etiket (görsel + screen reader) */}
-              <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              <div className="text-[11px] sm:text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 {/* sr-only: Screen reader için değer */}
                 <span className="sr-only">{stat.value} </span>
                 {stat.label}

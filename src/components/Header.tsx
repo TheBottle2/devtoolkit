@@ -15,7 +15,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link'; // Next.js client-side navigasyon
 import AppLogo from '@/components/ui/AppLogo'; // Logo bileşeni
 import { useTheme } from '@/hooks/useTheme'; // Tema hook'u
@@ -33,6 +33,9 @@ import { useTheme } from '@/hooks/useTheme'; // Tema hook'u
 export default function Header() {
   // Mobil menü açık/kapalı durumu
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Menü animasyon durumu: 'closed' → 'opening' → 'open' → 'closing'
+  const [menuState, setMenuState] = useState<'closed' | 'open'>('closed');
   
   // Tema hook'undan mevcut tema ve değiştirici
   const { theme, toggleTheme } = useTheme();
@@ -44,19 +47,30 @@ export default function Header() {
  * Menü kapandığında veya component unmount olduğunda resetlenir
  */
 
-useEffect(() => {
+  useEffect(() => {
     if (menuOpen) {
-      // Scroll'u gizle
       document.body.style.overflow = 'hidden';
+      setMenuState('open');
     } else {
-      // Scroll'u geri aç
       document.body.style.overflow = '';
+      setMenuState('closed');
     }
-    
-    // Cleanup: Component unmount olduğunda scroll'u aç
     return () => {
       document.body.style.overflow = '';
     };
+  }, [menuOpen]);
+
+  /**
+   * Escape tuşu ile mobil menüyü kapat
+   */
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [menuOpen]);
 
   return (
@@ -210,45 +224,64 @@ useEffect(() => {
         - id="mobile-menu": aria-controls ile ilişki
         - aria-label: "Mobile navigation"
       */}
-      {menuOpen && (
-        <nav
-          id="mobile-menu"
-          aria-label="Mobile navigation"
-          className="sm:hidden fixed inset-0 top-16 z-40 bg-background/95 backdrop-blur-md"
-        >
-          <ul className="flex flex-col items-center justify-center gap-8 h-full">
-            <li>
-              <Link
-                href="#stack"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              >
-                Stack
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="#tools"
-                onClick={() => setMenuOpen(false)}
-                className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              >
-                Tools
-              </Link>
-            </li>
-            <li>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-                aria-label="View GitHub profile (opens in new tab)"
-              >
-                GitHub ↗
-              </a>
-            </li>
-          </ul>
-        </nav>
-      )}
+      {/*
+        MOBİL MENÜ (Overlay)
+
+        menuState ile kontrol edilen animasyonlu menü
+        sm:hidden: Tablet+ gizli
+        fixed inset-0 top-16: Header altından tam ekran
+        bg-background/95: %95 opak
+        backdrop-blur-md: Blur efekti
+
+        Animasyon: opacity + translateY geçişi
+
+        ARIA:
+        - id="mobile-menu": aria-controls ile ilişki
+        - aria-label: "Mobile navigation"
+      */}
+      <nav
+        id="mobile-menu"
+        aria-label="Mobile navigation"
+        className={`sm:hidden fixed inset-0 top-16 z-40 bg-background/95 backdrop-blur-md transition-all duration-300 ease-out ${
+          menuState === 'open'
+            ? 'opacity-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+        inert={menuState !== 'open'}
+      >
+        <ul className="flex flex-col items-center justify-center gap-8 h-full">
+          <li>
+            <Link
+              href="#stack"
+              onClick={() => setMenuOpen(false)}
+              className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+            >
+              Stack
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="#tools"
+              onClick={() => setMenuOpen(false)}
+              className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+            >
+              Tools
+            </Link>
+          </li>
+          <li>
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              aria-label="View GitHub profile (opens in new tab)"
+            >
+              GitHub ↗
+            </a>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }

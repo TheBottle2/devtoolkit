@@ -43,8 +43,9 @@ const inter = Inter({
  * Mobil cihazlar için responsive davranış
  */
 export const viewport: Viewport = {
-  width: 'device-width', // Cihaz genişliğine göre ayarla
-  initialScale: 1, // Başlangıç zoom seviyesi
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 };
 
 /**

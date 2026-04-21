@@ -94,13 +94,13 @@ const tools: Tool[] = [
 
 export default function ToolsSection() {
   return (
-    <section id="tools" className="py-24" aria-labelledby="tools-heading">
+    <section id="tools" className="py-16 sm:py-24" aria-labelledby="tools-heading">
       <div className="max-w-6xl mx-auto px-6">
         {/*
           BÖLÜM BAŞLIĞI
           Animasyon: section-reveal stagger-1
         */}
-        <div className="section-reveal stagger-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-16">
+        <div className="section-reveal stagger-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-16">
           <div>
             <p
               className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-3"
@@ -140,7 +140,7 @@ export default function ToolsSection() {
           <article
               key={tool.name}
               role="listitem"
-              className={`section-reveal stagger-${index + 1} group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-8 hover:bg-muted transition-colors duration-200 px-2 -mx-2 rounded`}
+              className={`section-reveal stagger-${index + 1} group flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 py-8 hover:bg-muted active:bg-muted transition-colors duration-200 px-2 -mx-2 rounded`}
             >
               {/*
                 İNDEKS NUMARASI
@@ -166,11 +166,11 @@ export default function ToolsSection() {
                 shrink-0: Sabit genişlik
                 sm:w-48: 192px genişlik (desktop)
               */}
-              <div className="shrink-0 sm:w-48">
+              <div className="shrink-0 sm:w-44 md:w-48">
                 <h3 className="font-sans font-semibold text-lg text-foreground tracking-tight group-hover:text-primary transition-colors duration-200">
                   {tool.name}
                 </h3>
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                <span className="text-[11px] sm:text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
                   {tool.category}
                 </span>
               </div>
@@ -193,7 +193,7 @@ export default function ToolsSection() {
                 href={tool.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider border border-border rounded hover:border-primary hover:text-primary text-muted-foreground transition-all duration-200 group/link focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background active:scale-[0.97]"
+                className="shrink-0 inline-flex items-center gap-2 px-5 py-3 text-xs font-semibold uppercase tracking-wider border border-border rounded hover:border-primary hover:text-primary active:border-primary active:text-primary text-muted-foreground transition-all duration-200 group/link focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
                 aria-label={`Visit ${tool.name} website (opens in new tab)`}
               >
                 Visit
@@ -226,7 +226,7 @@ export default function ToolsSection() {
           ALT CTA
           GitHub linki ve son güncelleme bilgisi
         */}
-        <div className="section-reveal mt-16 pt-10 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="section-reveal mt-8 sm:mt-16 pt-10 border-t border-border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <p className="text-sm text-muted-foreground max-w-sm leading-7">
             This list updates as I discover better tools. Last updated April 2026.
           </p>
