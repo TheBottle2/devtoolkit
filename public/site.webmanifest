@@ -1,0 +1,16 @@
+{
+  "name": "DevToolkit",
+  "short_name": "DevToolkit",
+  "description": "A developer's curated technology stack and favorite tools",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

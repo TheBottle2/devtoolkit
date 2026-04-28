@@ -51,14 +51,48 @@ export const viewport: Viewport = {
 /**
  * Sayfa meta verileri (SEO)
  * Tarayıcı sekmesi başlığı, arama motoru açıklaması, favicon
+ * Open Graph, Twitter Card, Canonical URL dahil
  */
 export const metadata: Metadata = {
-  title: 'DevToolkit — Curated Dev Stack & Tools',
+  title: {
+    default: 'DevToolkit — Curated Dev Stack & Tools',
+    template: '%s | DevToolkit',
+  },
   description:
     "A developer's curated technology stack and favorite tools — everything needed to build, ship, and iterate fast in 2026.",
+  metadataBase: new URL('https://devtoolkit.com'),
+  alternates: {
+    canonical: 'https://devtoolkit.com',
+  },
+  openGraph: {
+    title: 'DevToolkit — Curated Dev Stack & Tools',
+    description:
+      "A developer's curated technology stack and favorite tools — everything needed to build, ship, and iterate fast in 2026.",
+    url: 'https://devtoolkit.com',
+    siteName: 'DevToolkit',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'DevToolkit — Curated Dev Stack & Tools',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'DevToolkit — Curated Dev Stack & Tools',
+    description:
+      "A developer's curated technology stack and favorite tools — everything needed to build, ship, and iterate fast in 2026.",
+    images: ['/og-image.png'],
+  },
   icons: {
     icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
+  manifest: '/site.webmanifest',
 };
 
 /**
@@ -96,9 +130,38 @@ export default function RootLayout({
       lang="en" // Sayfa dili (İngilizce)
       suppressHydrationWarning // Tema mismatch uyarılarını engelle
     >
-      <head>
-        {/* 
-          FOUC (Flash of Unstyled Content) Önleyici Script
+    <head>
+      {/* Theme color for mobile browser address bar */}
+      <meta name="theme-color" content="#4f46e5" />
+      <meta name="color-scheme" content="light dark" />
+
+      {/* JSON-LD Structured Data - Google rich snippets */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@graph': [
+              {
+                '@type': 'WebSite',
+                name: 'DevToolkit',
+                url: 'https://devtoolkit.com',
+                description:
+                  "A developer's curated technology stack and favorite tools — everything needed to build, ship, and iterate fast in 2026.",
+              },
+              {
+                '@type': 'Person',
+                name: 'DevToolkit',
+                url: 'https://devtoolkit.com',
+                sameAs: ['https://github.com/TheBottle2'],
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/*
+        FOUC (Flash of Unstyled Content) Önleyici Script
           
           Sayfa yüklenirken tema değişikliği yaparken oluşan "beyaz ekran" 
           veya tema yanıp sönmesi sorununu çözer.
