@@ -15,7 +15,9 @@
  * Animasyonlu giriş (stagger) ve hover etkileri
  */
 
-import React from 'react';
+"use client";
+
+import React, { useMemo, useState } from 'react';
 
 /**
  * Stack Kartı Veri Tipi
@@ -102,6 +104,17 @@ const stackItems: StackCard[] = [
  */
 
 export default function StackSection() {
+  const [activeTag, setActiveTag] = useState('All');
+
+  const tags = useMemo(() => {
+    return ['All', ...Array.from(new Set(stackItems.map((item) => item.tag)))];
+  }, []);
+
+  const filteredItems = useMemo(() => {
+    if (activeTag === 'All') return stackItems;
+    return stackItems.filter((item) => item.tag === activeTag);
+  }, [activeTag]);
+
   return (
     <section
       id="stack"
@@ -120,7 +133,7 @@ export default function StackSection() {
           Animasyon: section-reveal stagger-1
           Layout: Mobil'de dikey, desktop'ta yatay (sm:flex-row)
         */}
-        <div className="section-reveal stagger-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-16">
+        <div className="section-reveal stagger-1 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6 sm:mb-10">
           <div>
             {/* EYEBROW: Üst küçük başlık */}
             <p
@@ -143,6 +156,28 @@ export default function StackSection() {
           </p>
         </div>
 
+        <div
+          className="section-reveal stagger-2 flex flex-wrap items-center gap-2 mb-8 sm:mb-12"
+          role="group"
+          aria-label="Stack filters"
+        >
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              onClick={() => setActiveTag(tag)}
+              aria-pressed={activeTag === tag}
+              className={`px-3 py-1.5 text-[11px] sm:text-[10px] font-semibold uppercase tracking-widest rounded-full border transition-colors duration-200 ${
+                activeTag === tag
+                  ? 'bg-primary text-primary-foreground border-primary'
+                  : 'bg-background text-muted-foreground border-border hover:text-foreground hover:border-muted-foreground'
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
         {/*
           KARTLAR GRİDİ
           
@@ -156,7 +191,7 @@ export default function StackSection() {
             
             index: Stagger animasyonu için kullanılır (stagger-1'den stagger-6'ya)
           */}
-{stackItems.map((item, index) => (
+ {filteredItems.map((item, index) => (
           <article
               key={item.name}
               className={`section-reveal stagger-${index + 1} group relative bg-card border border-border rounded-lg p-6 flex flex-col gap-4 hover:border-primary/30 active:border-primary/30 transition-colors duration-200`}
