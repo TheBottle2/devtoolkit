@@ -242,45 +242,47 @@ export default function Header() {
       <nav
         id="mobile-menu"
         aria-label="Mobile navigation"
-        className={`sm:hidden fixed inset-0 top-16 z-40 bg-background/95 backdrop-blur-md transition-all duration-300 ease-out ${
+        className={`sm:hidden fixed inset-0 top-16 z-40 bg-background/95 backdrop-blur-md transition-all duration-300 ease-out overflow-y-auto ${
           menuState === 'open'
             ? 'opacity-100 translate-y-0 pointer-events-auto'
             : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
         inert={menuState !== 'open'}
       >
-        <ul className="flex flex-col items-center justify-center gap-8 h-full">
-          <li>
-            <Link
-              href="#stack"
-              onClick={() => setMenuOpen(false)}
-              className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-            >
-              Stack
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="#tools"
-              onClick={() => setMenuOpen(false)}
-              className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-            >
-              Tools
-            </Link>
-          </li>
-          <li>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className="text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
-              aria-label="View GitHub profile (opens in new tab)"
-            >
-              GitHub ↗
-            </a>
-          </li>
-        </ul>
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <ul className="flex flex-col gap-4">
+            <li>
+              <Link
+                href="#stack"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-between w-full px-4 py-4 text-lg font-semibold text-foreground border border-border rounded-xl bg-background/60 hover:bg-muted/60 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Stack
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#tools"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-between w-full px-4 py-4 text-lg font-semibold text-foreground border border-border rounded-xl bg-background/60 hover:bg-muted/60 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+              >
+                Tools
+              </Link>
+            </li>
+            <li>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-between w-full px-4 py-4 text-lg font-semibold text-foreground border border-border rounded-xl bg-background/60 hover:bg-muted/60 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background"
+                aria-label="View GitHub profile (opens in new tab)"
+              >
+                GitHub ↗
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
     </header>
   );

@@ -157,7 +157,7 @@ export default function StackSection() {
         </div>
 
         <div
-          className="section-reveal stagger-2 flex flex-wrap items-center gap-2 mb-8 sm:mb-12"
+          className="section-reveal stagger-2 -mx-6 px-6 flex items-center gap-2 overflow-x-auto pb-2 mb-6 sm:mb-12 sm:mx-0 sm:px-0 sm:overflow-visible sm:flex-wrap"
           role="group"
           aria-label="Stack filters"
         >
@@ -167,7 +167,7 @@ export default function StackSection() {
               type="button"
               onClick={() => setActiveTag(tag)}
               aria-pressed={activeTag === tag}
-              className={`px-3 py-1.5 text-[11px] sm:text-[10px] font-semibold uppercase tracking-widest rounded-full border transition-colors duration-200 ${
+              className={`min-h-[44px] px-4 py-2 text-[11px] sm:text-[10px] font-semibold uppercase tracking-widest rounded-full border transition-colors duration-200 ${
                 activeTag === tag
                   ? 'bg-primary text-primary-foreground border-primary'
                   : 'bg-background text-muted-foreground border-border hover:text-foreground hover:border-muted-foreground'
@@ -185,7 +185,7 @@ export default function StackSection() {
           lg:grid-cols-3: 3 kolon (1024px+)
           gap-4: Kartlar arası boşluk (16px)
         */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {/*
             Her bir kart için map ile döngü
             
