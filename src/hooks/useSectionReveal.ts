@@ -19,7 +19,11 @@ export function useSectionReveal(threshold = 0.15) {
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      el.classList.add('is-visible');
+      const targets = el.querySelectorAll('.section-reveal');
+      targets.forEach((target) => target.classList.add('is-visible'));
+      if (el.classList.contains('section-reveal')) {
+        el.classList.add('is-visible');
+      }
       return;
     }
 
@@ -32,7 +36,24 @@ export function useSectionReveal(threshold = 0.15) {
     children.forEach((child) => observer.observe(child));
     if (el.classList.contains('section-reveal')) observer.observe(el);
 
-    return () => observer.disconnect();
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return;
+          if (node.classList.contains('section-reveal')) {
+            observer.observe(node);
+          }
+          node.querySelectorAll('.section-reveal').forEach((child) => observer.observe(child));
+        });
+      });
+    });
+
+    mutationObserver.observe(el, { childList: true, subtree: true });
+
+    return () => {
+      mutationObserver.disconnect();
+      observer.disconnect();
+    };
   }, [handleIntersect, threshold]);
 
   return ref;
